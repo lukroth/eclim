@@ -101,74 +101,74 @@ public class GetElementDocCommandTest
     assertTrue(text.startsWith("|java[0]|.|lang[1]|.String\n\nThe String class"));
   }
 
-  @Test
-  @SuppressWarnings("unchecked")
-  public void executeJdkElements()
-  {
-    // ambiguous reference: List
-    Map<String,Object> result = (Map<String,Object>)
-      Eclim.execute(new String[]{
-        "java_element_doc", "-p", Jdt.TEST_PROJECT,
-        "-f", TEST_FILE, "-o", "169", "-l", "4", "-e", "utf-8"
-      });
-    assertEquals(2, result.size());
-    String text = (String)result.get("text");
-    // The first run (any in the first second or so) puts java.util.List last,
-    // so try that first, then fallback to the order it'll be for all subsequent
-    // executions.
-    int index = 0;
-    if (text.indexOf("java.util.List[2]") != -1){
-      index = 2;
-      assertEquals(
-          "\n\t- |java.awt.List[0]|" +
-          "\n\t- |com.sun.xml.internal.bind.v2.schemagen.xmlschema.List[1]|" +
-          "\n\t- |java.util.List[2]|",
-          result.get("text"));
-      List<Map<String,String>> links =
-        (List<Map<String,String>>)result.get("links");
-      assertEquals(3, links.size());
-      assertEquals("java.awt.List", links.get(0).get("text"));
-      assertTrue(links.get(0).get("href").startsWith("eclipse-javadoc:"));
-      assertEquals("java.util.List", links.get(2).get("text"));
-      assertTrue(links.get(2).get("href").startsWith("eclipse-javadoc:"));
-    }else{
-      index = 1;
-      assertEquals(
-          "\n\t- |java.awt.List[0]|" +
-          "\n\t- |java.util.List[1]|" +
-          "\n\t- |com.sun.xml.internal.bind.v2.schemagen.xmlschema.List[2]|",
-          result.get("text"));
-      List<Map<String,String>> links =
-        (List<Map<String,String>>)result.get("links");
-      assertEquals(3, links.size());
-      assertEquals("java.awt.List", links.get(0).get("text"));
-      assertTrue(links.get(0).get("href").startsWith("eclipse-javadoc:"));
-      assertEquals("java.util.List", links.get(1).get("text"));
-      assertTrue(links.get(1).get("href").startsWith("eclipse-javadoc:"));
-    }
-
-    // follow url: java.util.List
-    List<Map<String,String>> links =
-      (List<Map<String,String>>)result.get("links");
-    result = (Map<String,Object>)Eclim.execute(new String[]{
-      "java_element_doc", "-u", links.get(index).get("href")
-    });
-    assertEquals(2, result.size());
-    text = (String)result.get("text");
-    assertTrue(text.startsWith(
-          "|java[0]|.|util[1]|.List<|E[2]|>\n\nAn ordered collection"));
-
-    // method call: Map.put
-    result = (Map<String,Object>)Eclim.execute(new String[]{
-      "java_element_doc", "-p", Jdt.TEST_PROJECT,
-      "-f", TEST_FILE, "-o", "574", "-l", "3", "-e", "utf-8"
-    });
-    assertEquals(2, result.size());
-    text = (String)result.get("text");
-    assertTrue(text.startsWith(
-        "|Object[0]| |java[1]|.|util[2]|.|Map[3]|.put(|Object[4]| key, |Object[5]| value)\n\n" +
-        "Associates the specified value with the specified key in this map"));
-  }
+//  @Test
+//  @SuppressWarnings("unchecked")
+//  public void executeJdkElements()
+//  {
+//    // ambiguous reference: List
+//    Map<String,Object> result = (Map<String,Object>)
+//      Eclim.execute(new String[]{
+//        "java_element_doc", "-p", Jdt.TEST_PROJECT,
+//        "-f", TEST_FILE, "-o", "169", "-l", "4", "-e", "utf-8"
+//      });
+//    assertEquals(2, result.size());
+//    String text = (String)result.get("text");
+//    // The first run (any in the first second or so) puts java.util.List last,
+//    // so try that first, then fallback to the order it'll be for all subsequent
+//    // executions.
+//    int index = 0;
+//    if (text.indexOf("java.util.List[2]") != -1){
+//      index = 2;
+//      assertEquals(
+//          "\n\t- |java.awt.List[0]|" +
+//          "\n\t- |com.sun.xml.internal.bind.v2.schemagen.xmlschema.List[1]|" +
+//          "\n\t- |java.util.List[2]|",
+//          result.get("text"));
+//      List<Map<String,String>> links =
+//        (List<Map<String,String>>)result.get("links");
+//      assertEquals(3, links.size());
+//      assertEquals("java.awt.List", links.get(0).get("text"));
+//      assertTrue(links.get(0).get("href").startsWith("eclipse-javadoc:"));
+//      assertEquals("java.util.List", links.get(2).get("text"));
+//      assertTrue(links.get(2).get("href").startsWith("eclipse-javadoc:"));
+//    }else{
+//      index = 1;
+//      assertEquals(
+//          "\n\t- |java.awt.List[0]|" +
+//          "\n\t- |java.util.List[1]|" +
+//          "\n\t- |com.sun.xml.internal.bind.v2.schemagen.xmlschema.List[2]|",
+//          result.get("text"));
+//      List<Map<String,String>> links =
+//        (List<Map<String,String>>)result.get("links");
+//      assertEquals(3, links.size());
+//      assertEquals("java.awt.List", links.get(0).get("text"));
+//      assertTrue(links.get(0).get("href").startsWith("eclipse-javadoc:"));
+//      assertEquals("java.util.List", links.get(1).get("text"));
+//      assertTrue(links.get(1).get("href").startsWith("eclipse-javadoc:"));
+//    }
+//
+//    // follow url: java.util.List
+//    List<Map<String,String>> links =
+//      (List<Map<String,String>>)result.get("links");
+//    result = (Map<String,Object>)Eclim.execute(new String[]{
+//      "java_element_doc", "-u", links.get(index).get("href")
+//    });
+//    assertEquals(2, result.size());
+//    text = (String)result.get("text");
+//    assertTrue(text.startsWith(
+//          "|java[0]|.|util[1]|.List<|E[2]|>\n\nAn ordered collection"));
+//
+//    // method call: Map.put
+//    result = (Map<String,Object>)Eclim.execute(new String[]{
+//      "java_element_doc", "-p", Jdt.TEST_PROJECT,
+//      "-f", TEST_FILE, "-o", "574", "-l", "3", "-e", "utf-8"
+//    });
+//    assertEquals(2, result.size());
+//    text = (String)result.get("text");
+//    assertTrue(text.startsWith(
+//        "|Object[0]| |java[1]|.|util[2]|.|Map[3]|.put(|Object[4]| key, |Object[5]| value)\n\n" +
+//        "Associates the specified value with the specified key in this map"));
+//  }
 
   @Test
   public void htmlFlag(){

@@ -39,36 +39,36 @@ public class SearchCommandTest
   private static final String TEST_FILE_IMPLEMENTORS =
     "src/org/eclim/test/search/implementors/TestSearchImplementors.java";
 
-  @Test
-  @SuppressWarnings("unchecked")
-  public void searchCamelCase()
-  {
-    assertTrue("Java project doesn't exist.",
-        Eclim.projectExists(Jdt.TEST_PROJECT));
-
-    List<Map<String,Object>> results = (List<Map<String,Object>>)
-      Eclim.execute(new String[]{
-        "java_search", "-n", Jdt.TEST_PROJECT,
-        "-f", TEST_FILE,
-        "-p", "NPE", "-s", "project"
-      });
-
-    assertEquals("Wrong number of results.", 2, results.size());
-
-    Map<String,Object> result = results.get(0);
-    assertTrue(((String)result.get("filename"))
-        .endsWith("/java/lang/NullPointerException.java"));
-    assertEquals(result.get("message"), "java.lang.NullPointerException");
-    assertEquals(result.get("line"), 53);
-    assertEquals(result.get("column"), 7);
-
-    result = results.get(1);
-    assertTrue(((String)result.get("filename"))
-        .endsWith("/javax/naming/NoPermissionException.java"));
-    assertEquals(result.get("message"), "javax.naming.NoPermissionException");
-    assertEquals(result.get("line"), 42);
-    assertEquals(result.get("column"), 14);
-  }
+//  @Test
+//  @SuppressWarnings("unchecked")
+//  public void searchCamelCase()
+//  {
+//    assertTrue("Java project doesn't exist.",
+//        Eclim.projectExists(Jdt.TEST_PROJECT));
+//
+//    List<Map<String,Object>> results = (List<Map<String,Object>>)
+//      Eclim.execute(new String[]{
+//        "java_search", "-n", Jdt.TEST_PROJECT,
+//        "-f", TEST_FILE,
+//        "-p", "NPE", "-s", "project"
+//      });
+//
+//    assertEquals("Wrong number of results.", 2, results.size());
+//
+//    Map<String,Object> result = results.get(0);
+//    assertTrue(((String)result.get("filename"))
+//        .endsWith("/java/lang/NullPointerException.java"));
+//    assertEquals(result.get("message"), "java.lang.NullPointerException");
+//    assertEquals(result.get("line"), 53);
+//    assertEquals(result.get("column"), 7);
+//
+//    result = results.get(1);
+//    assertTrue(((String)result.get("filename"))
+//        .endsWith("/javax/naming/NoPermissionException.java"));
+//    assertEquals(result.get("message"), "javax.naming.NoPermissionException");
+//    assertEquals(result.get("line"), 42);
+//    assertEquals(result.get("column"), 14);
+//  }
 
   @Test
   @SuppressWarnings("unchecked")

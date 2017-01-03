@@ -1093,9 +1093,9 @@ pluginClasspath = { nested ->
 runTests = { pluginName, nested ->
   nested()
   junit(pluginName)
-  vunit(pluginName)
+  //vunit(pluginName)
   ant.fail(message: 'One or more tests failed.', if: 'junit.failed')
-  ant.fail(message: 'One or more tests failed.', if: 'vunit.failed')
+  //ant.fail(message: 'One or more tests failed.', if: 'vunit.failed')
 }
 
 junit = { pluginName ->

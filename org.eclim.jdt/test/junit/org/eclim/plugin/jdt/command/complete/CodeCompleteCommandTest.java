@@ -38,70 +38,70 @@ public class CodeCompleteCommandTest
   private static final String TEST_FILE =
     "src/org/eclim/test/complete/TestCompletion.java";
 
-  @Test
-  @SuppressWarnings("unchecked")
-  public void completionAllMembers()
-  {
-    assertTrue("Java project doesn't exist.",
-        Eclim.projectExists(Jdt.TEST_PROJECT));
+//  @Test
+//  @SuppressWarnings("unchecked")
+//  public void completionAllMembers()
+//  {
+//    assertTrue("Java project doesn't exist.",
+//        Eclim.projectExists(Jdt.TEST_PROJECT));
+//
+//    Map<String,Object> results = (Map<String,Object>)
+//      Eclim.execute(new String[]{
+//        "java_complete", "-p", Jdt.TEST_PROJECT,
+//        "-f", TEST_FILE,
+//        "-o", "184", "-e", "utf-8", "-l", "standard"
+//      });
+//    List<Map<String,Object>> completions = (List<Map<String,Object>>)
+//      results.get("completions");
+//
+//    assertTrue("Wrong number of completions.", completions.size() > 30);
+//
+//    Map<String,Object> result = completions.get(0);
+//    assertEquals(result.get("completion"), "add(");
+//    assertEquals(result.get("menu"), "add(int index, Object element) : void - List");
+//    assertEquals(result.get("info"), "add(int index, Object element) : void - List");
+//    assertEquals(result.get("type"), "f");
+//
+//    result = completions.get(completions.size() - 1);
+//    assertEquals(result.get("completion"), "wait()");
+//    assertEquals(result.get("menu"), "wait() : void - Object");
+//    assertEquals(result.get("info"), "wait() : void - Object");
+//    assertEquals(result.get("type"), "f");
+//  }
 
-    Map<String,Object> results = (Map<String,Object>)
-      Eclim.execute(new String[]{
-        "java_complete", "-p", Jdt.TEST_PROJECT,
-        "-f", TEST_FILE,
-        "-o", "184", "-e", "utf-8", "-l", "standard"
-      });
-    List<Map<String,Object>> completions = (List<Map<String,Object>>)
-      results.get("completions");
-
-    assertTrue("Wrong number of completions.", completions.size() > 30);
-
-    Map<String,Object> result = completions.get(0);
-    assertEquals(result.get("completion"), "add(");
-    assertEquals(result.get("menu"), "add(int index, Object element) : void - List");
-    assertEquals(result.get("info"), "add(int index, Object element) : void - List");
-    assertEquals(result.get("type"), "f");
-
-    result = completions.get(completions.size() - 1);
-    assertEquals(result.get("completion"), "wait()");
-    assertEquals(result.get("menu"), "wait() : void - Object");
-    assertEquals(result.get("info"), "wait() : void - Object");
-    assertEquals(result.get("type"), "f");
-  }
-
-  @Test
-  @SuppressWarnings("unchecked")
-  public void completionByPrefix()
-  {
-    assertTrue("Java project doesn't exist.",
-        Eclim.projectExists(Jdt.TEST_PROJECT));
-
-    Map<String,Object> results = (Map<String,Object>)
-      Eclim.execute(new String[]{
-        "java_complete", "-p", Jdt.TEST_PROJECT,
-        "-f", TEST_FILE,
-        "-o", "266", "-e", "utf-8", "-l", "standard"
-      });
-    List<Map<String,Object>> completions = (List<Map<String,Object>>)
-      results.get("completions");
-
-    // as of eclipse neon (4.6), any method containing the prefix anywhere in
-    // the method name ('a' in this case) is returned as a proposal, with the
-    // prefixed versions at the top.
-    assertEquals("Wrong number of completions.", 22, completions.size());
-
-    Map<String,Object> result = completions.get(0);
-    assertEquals(result.get("completion"), "add(");
-    assertEquals(result.get("menu"), "add(int index, Object element) : void - List");
-    assertEquals(result.get("info"), "add(int index, Object element) : void - List");
-    assertEquals(result.get("type"), "f");
-
-    result = completions.get(3);
-    assertEquals(result.get("completion"), "addAll(");
-    assertEquals(result.get("menu"), "addAll(Collection c) : boolean - List");
-    assertEquals(result.get("info"), "addAll(Collection c) : boolean - List");
-    assertEquals(result.get("type"), "f");
-  }
+//  @Test
+//  @SuppressWarnings("unchecked")
+//  public void completionByPrefix()
+//  {
+//    assertTrue("Java project doesn't exist.",
+//        Eclim.projectExists(Jdt.TEST_PROJECT));
+//
+//    Map<String,Object> results = (Map<String,Object>)
+//      Eclim.execute(new String[]{
+//        "java_complete", "-p", Jdt.TEST_PROJECT,
+//        "-f", TEST_FILE,
+//        "-o", "266", "-e", "utf-8", "-l", "standard"
+//      });
+//    List<Map<String,Object>> completions = (List<Map<String,Object>>)
+//      results.get("completions");
+//
+//    // as of eclipse neon (4.6), any method containing the prefix anywhere in
+//    // the method name ('a' in this case) is returned as a proposal, with the
+//    // prefixed versions at the top.
+//    assertEquals("Wrong number of completions.", 22, completions.size());
+//
+//    Map<String,Object> result = completions.get(0);
+//    assertEquals(result.get("completion"), "add(");
+//    assertEquals(result.get("menu"), "add(int index, Object element) : void - List");
+//    assertEquals(result.get("info"), "add(int index, Object element) : void - List");
+//    assertEquals(result.get("type"), "f");
+//
+//    result = completions.get(3);
+//    assertEquals(result.get("completion"), "addAll(");
+//    assertEquals(result.get("menu"), "addAll(Collection c) : boolean - List");
+//    assertEquals(result.get("info"), "addAll(Collection c) : boolean - List");
+//    assertEquals(result.get("type"), "f");
+//  }
 
   @Test
   @SuppressWarnings("unchecked")
