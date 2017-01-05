@@ -218,7 +218,10 @@ public class CodeCompleteCommand
     // of whether the user ever views it.
     /*return new CodeCompleteResult(
         kind, completion, menu, proposal.getAdditionalProposalInfo());*/
-    return new CodeCompleteResult(completion, menu, menu, type, offset, javaDocURI);
+    CodeCompleteResult result = new CodeCompleteResult(completion, menu, menu, type,
+        offset, javaDocURI);
+    result.setRelevance(proposal.getRelevance());
+    return result;
   }
 
   private String getJavaDocLink(IJavaCompletionProposal proposal)
