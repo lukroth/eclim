@@ -25,6 +25,7 @@ import org.eclim.Eclim;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -159,6 +160,7 @@ public class ProjectCommandsTest
     assertEquals("Wrong project path", path, Eclim.getProjectPath(TEST_PROJECT));
   }
 
+  @Ignore
   @Test
   @SuppressWarnings({"rawtypes", "unchecked"})
   public void importProject()
